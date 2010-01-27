@@ -1,0 +1,33 @@
+
+
+<!ELEMENT ActivityLogs ((Owner), (Log)+)>
+
+<!ELEMENT Owner (
+	Firstname?,
+	Lastname?,
+	Email?,
+	Team
+)>
+
+
+  <!ELEMENT Firstname (#PCDATA)>
+  <!ELEMENT Lastname (#PCDATA)>
+  <!ELEMENT Email (#PCDATA)>
+
+
+<!ELEMENT Log (
+	Date?,
+	Publication?
+)>
+
+  <!ELEMENT Date (#PCDATA)>
+
+<!ELEMENT Publication (
+	Name?,
+	HyperLinkDocument?
+)>
+
+  <!ELEMENT Name (#PCDATA)>
+  <!ELEMENT HyperLinkDocument (#PCDATA)>
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<root xsi:noNamespaceSchemaLocation="DTD/reports.xsd" 
+xmlns="" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+<ActivityLogs>
+	<Owner>
+		<FirstName> Eric </FirstName>
+		<LastName> MAILLE </LastName>
+		<Team> INCOD </Team>
+	</Owner>
+	<Log>
+		<Comments> Nous sommes bloques sur un probleme qui necessite une intervention exterieure </Comments>
+		<Plans> Nous allons chercher dans les laboratoires exterieurs qui maitrise le sujet </Plans>
+		<Needs>  Nous aurons de suffisament de fonds pour poursuivre </Needs>
+	</Log>
+</ActivityLogs>
+</root>

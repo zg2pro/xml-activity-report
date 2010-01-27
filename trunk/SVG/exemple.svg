@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full">
+
+<defs>
+ <linearGradient id="Gradient01"> 12 </linearGradient >
+</defs>
+
+
+  <g fill-opacity="0.7" stroke="black" stroke-width="0.1cm">
+    <ellipse rx="12cm" ry="4cm" cx="6cm" cy="2cm" r="100" fill="red"
+                    transform="translate(0,150)" />
+    <circle cx="6cm" cy="2cm" r="100" fill="blue"
+                    transform="translate(70,150)" />
+    <circle cx="6cm" cy="2cm" r="100" fill="green"
+                    transform="translate(-70,150)" />
+  </g>
+
+</svg>

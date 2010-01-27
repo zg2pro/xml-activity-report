@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xsp:page language="java"
+  xmlns:xsp="http://apache.org/xsp"
+  xmlns:esql="http://apache.org/cocoon/SQL/v2"
+  xmlns:util="http://apache.org/xsp/util/2.0"
+  xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<Report>
+
+  <Title>Compte - Rendu : Activité du labo LSIS</Title>
+
+ <Date>Rapport du 
+	<util:time format="dd-MM-yyyy  HH:mm:ss"/>
+ </Date>
+
+<equipes/>
+<piechart/>
+
+<publis/>
+<barchart/>
+
+</Report>
+
+
+</xsp:page>
+

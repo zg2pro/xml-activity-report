@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!--The top level element contains the schema location. However, the validation service overrides this.-->
+<!--components xmlns:xsi="http://www.w3c.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="pie.xsd"-->
+
+<components/>
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<root xsi:noNamespaceSchemaLocation="DTD/reports.xsd" 
+xmlns="" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+<ActivityLogs>
+	<Owner>
+		<FirstName> Pierre </FirstName>
+		<LastName> DRAP </LastName>
+		<Team> INCA </Team>
+	</Owner>
+	<Log>
+		<Comments> Nous poursuivons nos recherches </Comments>
+		<Plans> Nous publier tout jeudi 12 </Plans>
+		<Needs/>
+	</Log>
+</ActivityLogs>
+</root>
