@@ -1,0 +1,12 @@
+
+<test>
+
+<tests id="01">
+TEST1
+</tests>
+
+<tests id="02"> 
+test2
+</tests>
+
+</test>

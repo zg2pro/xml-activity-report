@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<xsp:page language="java"
+  xmlns:xsp="http://apache.org/xsp"
+  xmlns:esql="http://apache.org/cocoon/SQL/v2"
+  xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+
+
+  <body>
+
+<br/><br/>
+
+<!--
+Parametre cleTri  :<xsp-request:get-parameter name="cleTri"/> <br/>
+URI : <xsp-request:get-sitemap-uri/><br/>
+-->
+  <esql:connection>
+   <!--  esql:pool>connectionName</esql:pool-->
+      <esql:driver>org.postgresql.Driver</esql:driver> 
+      <esql:dburl>jdbc:postgresql://localhost/gregory</esql:dburl>
+      <esql:username>gregory</esql:username>
+      <esql:password>gregory</esql:password>
+      <esql:execute-query>
+	<esql:query>SELECT nom, prenom, id_personnel FROM personnel ORDER BY id_personnel
+  <!--  	  <xsp:expr>(request.getParameter("cleTri")!=null)?"order by "+request.getParameter("cleTri"):"" </xsp:expr>-->
+	</esql:query>
+	<esql:results>
+	  <table>
+	    <esql:row-results>
+	      <tr>
+		<td><esql:get-string column="nom"/></td>
+		<td><esql:get-string column="prenom"/></td>
+		<td><esql:get-string column="id_personnel"/></td>
+	      </tr>
+	    </esql:row-results>
+	  </table>
+	</esql:results>
+	<esql:no-results>
+	  <p>Sorry, no results!</p>
+	</esql:no-results>
+	<esql:error-results>
+	  <error/>
+	</esql:error-results>
+	
+      </esql:execute-query>
+    </esql:connection>
+
+  </body>
+</xsp:page>

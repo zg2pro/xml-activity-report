@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<root xsi:noNamespaceSchemaLocation="DTD/reports.xsd" 
+xmlns="" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+<ActivityLogs>
+	<Owner>
+		<FirstName> Jean </FirstName>
+		<LastName> DUPLAIX </LastName>
+		<Team> COSI </Team>
+	</Owner>
+	<Log>
+		<Comments> Nous avons avance nos projets </Comments>
+		<Plans> Nous voulons les continuer </Plans>
+		<Needs>  Nous aurons besoins de materiel et de fonds </Needs>
+	</Log>
+</ActivityLogs>
+</root>

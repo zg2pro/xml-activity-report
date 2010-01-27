@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<xsp:page language="java"
+  xmlns:xsp="http://apache.org/xsp"
+  xmlns:esql="http://apache.org/cocoon/SQL/v2"
+  xmlns:util="http://apache.org/xsp/util/2.0"
+  xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+
+<Report>
+
+  <Title>Compte - Rendu : Activité de l'equipe <xsp:expr>request.getParameter("team")</xsp:expr></Title>
+
+
+ <Date>Rapport du 
+	<util:time format="dd-MM-yyyy  HH:mm:ss"/>
+ </Date>
+
+<StaffRequest>
+  <xsp:logic>
+    String team = "'"+request.getParameter("team")+"'";
+	int cpt = 0;
+	int cptpublis = 0;
+	String sYear = <util:time format="yyyy"/>;
+	int year = Integer.parseInt(sYear) - 1;
+	sYear = "'"+Integer.toString(year)+"-01-01'";
+  </xsp:logic>
+
+  <esql:connection>
+   <!--  esql:pool>connectionName</esql:pool-->
+      <esql:driver>org.postgresql.Driver</esql:driver> 
+      <esql:dburl>jdbc:postgresql://localhost/gregory</esql:dburl>
+      <esql:username>gregory</esql:username>
+      <esql:password>gregory</esql:password>
+      <esql:execute-query>
+	<esql:query>SELECT p.nom, p.prenom FROM personnel p, estdans e WHERE 
+	e.id_personnel = p.id_personnel  AND e.nom = 
+	<xsp:expr> team </xsp:expr>
+	 ORDER BY p.nom
+	</esql:query>
+	<esql:results>
+	<StaffList>
+	    <esql:row-results>
+	      <Person>
+		<name><esql:get-string column="nom"/></name>
+		<firstName><esql:get-string column="prenom"/></firstName>
+		  <xsp:logic> cpt++; </xsp:logic>
+	      </Person>
+	    </esql:row-results>
+	</StaffList>
+	<StaffNumber>
+        	<nb><xsp:expr>cpt</xsp:expr></nb>
+	</StaffNumber>
+	</esql:results>
+	<esql:no-results>
+	  <p>Sorry, no results!</p>
+	</esql:no-results>
+	<esql:error-results>
+	  <error/>
+	</esql:error-results>
+      </esql:execute-query>
+
+    </esql:connection>
+</StaffRequest>
+
+<PublicationsRequest>
+  <esql:connection>
+   <!--  esql:pool>connectionName</esql:pool-->
+      <esql:driver>org.postgresql.Driver</esql:driver> 
+      <esql:dburl>jdbc:postgresql://localhost/gregory</esql:dburl>
+      <esql:username>gregory</esql:username>
+      <esql:password>gregory</esql:password>
+      <esql:execute-query>
+	<esql:query>SELECT array_to_string(array(select * from authorsFromPubli(p.id_publication) as (auteurs text)), ', ') as auteur, p.titre, p.date_, p.lieu, p.parution FROM publication p
+	WHERE date_ >= 
+		<xsp:expr>sYear</xsp:expr> AND p.equipe = 
+	<xsp:expr> team </xsp:expr>
+	 ORDER BY p.parution
+	</esql:query>
+	<esql:results>
+	<PubliList>
+	    <esql:row-results>
+	      <Publi>
+		<auteur><esql:get-string column="auteur"/></auteur>
+		<titre><esql:get-string column="titre"/></titre>
+		<date><esql:get-string column="date_"/></date>
+		<lieu><esql:get-string column="lieu"/></lieu>
+		<paru><esql:get-string column="parution"/></paru>
+		  <xsp:logic> cptpublis++; </xsp:logic>
+	      </Publi>
+	    </esql:row-results>
+	</PubliList>
+	<PubliNumber>
+        	<nb><xsp:expr>cptpublis</xsp:expr></nb>
+	</PubliNumber>
+	</esql:results>
+	<esql:no-results>
+	  <p>Sorry, no results!</p>
+	</esql:no-results>
+	<esql:error-results>
+	  <error/>
+	</esql:error-results>
+      </esql:execute-query>
+
+    </esql:connection>
+</PublicationsRequest>
+
+<TeamReport/>
+
+</Report>
+
+
+</xsp:page>

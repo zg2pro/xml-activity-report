@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<element name="ActivityLogs">
+	<element name="Owner" minOccurs="1">
+		<complexType>
+			<element name="FirstName" type="string"/>
+			<element name="LastName" type="string"/>
+			<element name="Team" type="string"/>
+		</complexType>
+	</element>
+	<element name="Log" minOccurs="0" maxOccurs="unbounded">
+		<complexType>
+			<element name="Comments"/>
+			<element name="Plans"/>
+			<element name="Needs"/>
+		</complexType>
+	</element>
+</element>
+</xs:schema>

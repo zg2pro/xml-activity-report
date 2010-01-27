@@ -1,0 +1,142 @@
+
+<svg  xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     baseProfile="full"
+	xml:space="preserve" width="300" height="450">
+<?php
+
+// here we define the data
+// you must change these 2 lines with wathever you need to create your own graphs
+$graph_title = 'Proportions des effectifs';
+$graph_desc = 'votre navigateur est obsolete';
+$graph_data = array(24,35,12,94);
+$graph_names = array('COSI','IMS','INCA','INCOD');
+//foreach ($graph_names as $d)
+//for ($i=0;$i<sizeof($graph_names);++$i) 
+//	$graph_data[$i] = $graph_names[$i];
+
+// from now on you don't need to touch anything
+
+// here we define the colors
+// if you don't like the colors I have chosen, change the colors here.
+$graph_colors = array('#f00','#f50','#fa0','#ff0','#af0','#0ff','#0af','#05f','#a0f','#f0f');
+
+// que j'aime à faire apprendre un nombre utile aux sages
+$pi = 3.1416926535;
+
+$total = 0;
+foreach ($graph_data as $d)
+	$total += $d;
+
+// we fill the $graph_angles array
+$graph_angles = array();
+foreach ($graph_data as $d)
+	$graph_angles[] = ($d / $total) * 2 * $pi;
+
+?>
+<title><?php echo $graph_title ?></title>
+<desc><?php echo $graph_desc ?></desc>
+<style>
+	<![CDATA[
+	text {
+		font-family: arial,helvetica,sans-serif;
+		fill: black;
+		}
+	// ]]>
+</style>
+<defs>
+	<!-- we define our shadow filter -->
+	<filter id="shadow" width="200%" height="200%">
+		<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+		<feOffset in="blur" dx="1.5" dy="1.5" result="offsetblur"/>
+		<feMerge>
+			<feMergeNode in="offsetblur"/>
+			<feMergeNode in="SourceGraphic"/>
+		</feMerge>
+	</filter>
+</defs>
+
+<text x="5" y="30" style="font-size:24;fill-opacity:0.7;font-weight:bold;"><?php echo $graph_title ?></text>
+
+<!-- just for fun we write the date and hour -->
+<text x="290" y="420" style="text-anchor:end;font-size:50px;font-weight:bold;fill-opacity:.1;"><?php echo date('d/m/y') ?></text>
+<text x="260" y="430" style="fill:white;text-anchor: end;font-size:30px;font-weight:bold;" filter="url(#shadow)"><?php echo date('H\hi') ?></text>
+
+<!-- the diagram really starts here -->
+<g transform="translate(150 155) scale(1.2 1.2)">
+<!-- if you want to change the place or size of the diagram, do it in the transform just above -->
+	<!-- underlying gray circle -->
+	<circle r="100" style="fill:black;fill-opacity:.2;"/>
+	<g filter="url(#shadow)">
+		<!-- all the pieces of cake -->
+		<?php
+		// this function translate and rotate the pieces of cake
+		$a = 0;
+		function xyr_trans($b) {
+			global $a;
+			global $pi;
+			$aa = $a;
+			$a = $a + $b;
+			return 'translate('.round(6*cos($aa+($b/2))).' '.round(6*sin($aa+($b/2))).') rotate('.round($aa/$pi*180).')';
+			}
+
+		for ($i=0;$i < sizeof($graph_data); $i++) {
+			echo '
+			<path d="M 0 0 l +100 0 A 100 100 0 ';
+			if ($graph_angles[$i]>$pi) {
+				// without this 'if', we would end up with big pieces of cake being concave
+				echo "1 1";
+				} else {
+				echo "0 1";
+				}
+			echo ' '. round(100*cos($graph_angles[$i])).' '. round(100*sin($graph_angles[$i])).' Z" ';
+			echo 'style="fill:'.$graph_colors[$i].';fill-opacity:.7" ';
+			echo 'transform="'.xyr_trans($graph_angles[$i]).'"/>';
+			}
+
+			?>
+
+	</g>
+
+	<g filter="url(#shadow)">
+		<!-- the translucid white labels -->
+		<?php
+
+		// this function will place the percentage white labels
+		$a=0;
+		function xy_trans($b) {
+			global $a;
+			global $pi;
+			$aa = $a;
+			$a = $a + $b;
+			return 'translate('.round(80*cos($aa+($b/2))).' '.round(80*sin($aa+($b/2))).')';
+			}
+
+		for ($i=0;$i < sizeof($graph_data); $i++) {
+			echo '
+			<g transform="'.xy_trans($graph_angles[$i]).'">
+				<rect x="-15" y="-11" width="30" height="13" style="fill:white;fill-opacity:.5;" />
+				<text style="font-weight:bold;text-anchor: middle;">'. round($graph_angles[$i]/.02/$pi).'%</text>
+			</g>
+			';
+			}
+		?>
+
+	</g>
+</g>
+
+		 
+<?php
+// we end up drawing the legend
+for ($i=0;$i < sizeof($graph_data); $i++) {
+	echo '
+	<path d="M 30 '.intval(300+$i*15).' l 12 0 a 12 12 0 0 0 -12 -12 Z" style="fill:'.$graph_colors[$i].';fill-opacity:.8" filter="url(#shadow)"/>
+	<text x="50" y="'.intval(300+$i*15).'">'.$graph_names[$i].'</text>
+	';
+	}
+
+?>
+
+</svg> 
+
